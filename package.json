@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
+    "prepare": "npm run format && npm run build",
     "format": "npx prettier --write **/*.ts"
   },
   "keywords": [
