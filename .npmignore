@@ -2,5 +2,5 @@ node_modules
 src
 test
 example
-tsconfing.json
+tsconfig.json
 .prettierrc
