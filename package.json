@@ -1,0 +1,21 @@
+{
+  "name": "readenv",
+  "version": "1.0.0",
+  "description": "type-friendly utility for reading environment variable",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "format": "npx prettier --write src/**/*.ts"
+  },
+  "keywords": [
+    "env"
+  ],
+  "author": "cm-ayf",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4"
+  }
+}
