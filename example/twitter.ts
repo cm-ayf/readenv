@@ -1,4 +1,4 @@
-import Twitter from 'twitter';
+import Twitter from 'twitter-v2';
 import readenv from '@cm-ayf/readenv';
 
 const env = readenv({
