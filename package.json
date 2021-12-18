@@ -1,6 +1,6 @@
 {
   "name": "@cm-ayf/readenv",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "type-friendly utility for reading environment variable",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
