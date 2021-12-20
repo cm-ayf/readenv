@@ -22,18 +22,17 @@ export default function readenv<T>(options: {
 }
 
 /**
- * specifies how to read environment variable
- * one `Option` per one environment variable
+ * specifies how to read variable. one `Option` per one variable.
  */
 interface Option {
     /**
-     * default value used when no such env. variable was found;
-     * if undefined throws error
+     * default value used when variable was not found.
+     * if omitted throws error if variable was not found.
      */
     default?: string;
     /**
-     * alternative environment variable name;
-     * if undefined use property name of `options`
+     * alternative variable name.
+     * if omitted use property name of `options`.
      */
     from?: string;
 }
