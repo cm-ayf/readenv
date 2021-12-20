@@ -7,7 +7,7 @@
 export default function readenv<D extends object>(options: {
     [K in keyof D]: Option<D[K]>;
 }) {
-    const env = {} as { [K in keyof D]: D[K] | string };
+    const env = {} as { [K in keyof D]: D[K] extends {} | null ? D[K] | string : string };
     const errs = [] as Error[];
 
     for (const key in options) {
