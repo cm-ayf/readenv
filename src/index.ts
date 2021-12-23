@@ -10,11 +10,9 @@ export default function readenv<
     }
 >(options: T) {
     const env = {} as {
-        [K in keyof T]: T[K] extends OptionDefault<infer D>
-            ? D
-            : never | T[K] extends OptionParse<infer P>
-            ? P
-            : string;
+        [K in keyof T]:
+            | (T[K] extends OptionDefault<infer D> ? D : never)
+            | (T[K] extends OptionParse<infer P> ? P : string);
     };
     const errs = [] as Error[];
 

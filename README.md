@@ -75,9 +75,9 @@ If an environment variable was missing with key that has no default value, **it 
 ### `readenv(options: { [key: string]: Option })`
 
 Input:
-* `option`: Object. The return object will inherit its keys. Each key can be configured with `Option`.
+* `options`: Object. The return object will inherit its keys. Each key can be configured with `Option`.
 
-Returns: Object. Inherits keys from `option`. Each value will always be `string`.
+Returns: Object. Inherits keys from `options`. Each value will always be `string`.
 
 Throws: `Error` object that tells us all environment variables missing.
 
@@ -85,18 +85,22 @@ Throws: `Error` object that tells us all environment variables missing.
 
 ```typescript
 interface Option {
-    default?: string;
+    default?: any;
     from?: string;
+    parse?(src): any
 }
 ```
 
 Fields:
-* `options.default`
-  * type: `string?`
-  * default value for the key. `readenv()` never throws error about key with `default`.
-* `options.from`
+* `option.default`
+  * type: `any`
+  * Default value for the key. `readenv()` never throws error about key with `default`.
+* `option.from`
   * type: `string?`
   * Environment variable name. Uses key if omitted.
+* `option.parse`
+  * type: `((src: string) => any)?`
+  * Applied after environment variable was read before return. Returns string value if omitted.
 
 ## Use Case
 
