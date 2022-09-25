@@ -4,7 +4,7 @@
  * @returns object with common keys with options and string result values
  * @throws if more than one key has neither environment variable nor default; throws everything at once
  */
-export default function readenv<
+export function readenv<
     T extends {
         [K in string]: Option<any, any>;
     }
@@ -33,6 +33,7 @@ export default function readenv<
     if (errs.length) throw new Error(errs.map((e) => e.toString()).join('\n'));
     return env;
 }
+export default readenv;
 
 interface OptionBase {
     from?: string;
