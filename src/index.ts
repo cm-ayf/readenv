@@ -1,4 +1,4 @@
-import { readenv } from './lib'
+import { readenv } from './lib';
 
-export { readenv }
+export { readenv };
 export default readenv;
