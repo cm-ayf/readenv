@@ -1,4 +1,4 @@
-import { readenv } from './lib.js';
+import { readenv } from './index.js';
 
 export { readenv };
 export default readenv;
