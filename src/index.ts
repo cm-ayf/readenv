@@ -21,7 +21,7 @@ export function readenv<
         const value = process.env[options[key]['from'] ?? key];
         if (hasDefault(option))
             env[key] = hasParse(option)
-                ? value
+                ? value !== undefined
                     ? option.parse(value)
                     : option.default
                 : value ?? option.default;
