@@ -6,7 +6,7 @@
  */
 export function readenv<
     T extends {
-        [K in string]: Option<any, any>;
+        [key: string]: Option<any, any>;
     }
 >(options: T) {
     const env = {} as {
@@ -91,22 +91,23 @@ let formatList = (list: Iterable<string>): string => {
 };
 
 /**
- * specifies how to read variable. one `Option` per one variable.
+ * Specifies how a variable should be read.
+ * A single `Option` should be provided per one variable.
  */
 interface Option<D, P> extends OptionBase {
     /**
-     * default value used when variable was not found.
-     * if omitted throws error if variable was not found.
+     * The default value used when a variable was not found.
+     * If omitted, throws an error if the variable was not found.
      */
     default?: D;
     /**
-     * alternative variable name.
-     * if omitted use property name of `options`.
+     * The variable name to be read from `process.env`.
+     * If omitted, uses the property name of `options`.
      */
     from?: string;
     /**
-     * parser used after value was read.
-     * if omitted returns string value.
+     * The parser for transforming the value after reading.
+     * If omitted, returns a string value.
      */
     parse?(src: string): P;
 }
