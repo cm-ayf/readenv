@@ -14,12 +14,13 @@ export function readenv<
             | (T[K] extends OptionDefault<infer D> ? D : never)
             | (T[K] extends OptionParse<infer P> ? P : string);
     };
-    const errs = [] as Error[];
+    const unknownKeys: string[] = [];
 
     for (const key in options) {
         if (!hasOwn(options, key)) continue;
         const option = options[key];
-        const value = process.env[options[key]['from'] ?? key];
+        const envKey = option.from ?? key;
+        const value = process.env[envKey];
         if (hasDefault(option))
             env[key] = hasParse(option)
                 ? value !== undefined
@@ -28,10 +29,17 @@ export function readenv<
                 : value ?? option.default;
         else if (value !== undefined)
             env[key] = hasParse(option) ? option.parse(value) : value;
-        else errs.push(new Error(`${options[key]['from'] ?? key} not found`));
+        else unknownKeys.push(envKey);
     }
 
-    if (errs.length) throw new Error(errs.map((e) => e.toString()).join('\n'));
+    if (unknownKeys.length)
+        throw new ReferenceError(
+            `readenv: Environment variable${
+                unknownKeys.length > 1 ? 's' : ''
+            } ${formatList(
+                unknownKeys.map((k) => `\`${k}\``)
+            )} cannot be found in \`process.env\`.`
+        );
     return env;
 }
 export default readenv;
@@ -59,6 +67,28 @@ function hasParse(option: OptionBase): option is OptionParse<any> {
 const hasOwn =
     (Object as any).hasOwn ??
     Object.prototype.hasOwnProperty.call.bind(Object.prototype.hasOwnProperty);
+
+let formatList = (list: Iterable<string>): string => {
+    const listFormatter = new ((Intl as any).ListFormat ??
+        class {
+            format(list: Iterable<string>) {
+                const array = Array.from(list);
+                switch (array.length) {
+                    case 0:
+                        return '';
+                    case 1:
+                        return array[0];
+                    case 2:
+                        return `${array[0]} and ${array[1]}`;
+                    default:
+                        array[array.length - 1] =
+                            'and ' + array[array.length - 1];
+                        return array.join(', ');
+                }
+            }
+        })('en');
+    return (formatList = listFormatter.format.bind(listFormatter))(list);
+};
 
 /**
  * specifies how to read variable. one `Option` per one variable.
