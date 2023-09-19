@@ -17,6 +17,7 @@ export function readenv<
     const errs = [] as Error[];
 
     for (const key in options) {
+        if (!hasOwn(options, key)) continue;
         const option = options[key];
         const value = process.env[options[key]['from'] ?? key];
         if (hasDefault(option))
@@ -54,6 +55,10 @@ interface OptionParse<P> extends OptionBase {
 function hasParse(option: OptionBase): option is OptionParse<any> {
     return 'parse' in option;
 }
+
+const hasOwn =
+    (Object as any).hasOwn ??
+    Object.prototype.hasOwnProperty.call.bind(Object.prototype.hasOwnProperty);
 
 /**
  * specifies how to read variable. one `Option` per one variable.
