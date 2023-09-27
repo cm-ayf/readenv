@@ -53,7 +53,7 @@ const env = {
     TOKEN: 'token_keyboard_cat',
     NODE_ENV: 'development',
     apiKey: 'api_key_keyboard_dog'
-}
+};
 ```
 
 Additionally, this `env` has static type like:
@@ -87,7 +87,7 @@ Throws: `Error` object that tells us all environment variables missing.
 interface Option {
     default?: any;
     from?: string;
-    parse?(src): any
+    parse?(src: string): any;
 }
 ```
 
