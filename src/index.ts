@@ -66,7 +66,7 @@ function hasParse(option: OptionBase): option is OptionParse<any> {
 
 const hasOwn =
     (Object as any).hasOwn ??
-    Object.prototype.hasOwnProperty.call.bind(Object.prototype.hasOwnProperty);
+    Function.call.bind(Object.prototype.hasOwnProperty);
 
 let formatList = (list: Iterable<string>): string => {
     const listFormatter = new ((Intl as any).ListFormat ??
